@@ -28,11 +28,11 @@ function ResBody() {
     const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9715987&lng=77.5945627&page_type=DESKTOP_WEB_LISTING");
 
     const json = await data.json();
-    // console.log(json);
+     console.log(json);
 
     //optional chaining
-    setListOfRestaurants(json?.data?.cards[2]?.data?.data?.cards)
-    setFilteredRestaurant(json?.data?.cards[2]?.data?.data?.cards)
+    setListOfRestaurants(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+    setFilteredRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
   };
 
   //console.log(listOfRestaurants);
@@ -61,7 +61,7 @@ function ResBody() {
                   onClick={() => {
                   // filter the restaurant cards and update the UI
                  const filteredRestaurant = listOfRestaurants.filter(
-                   (res) => res.data.name.toLowerCase().includes(searchText.toLowerCase())
+                   (res) => res.info.name.toLowerCase().includes(searchText.toLowerCase())
                   );
                   setFilteredRestaurant(filteredRestaurant);
 
@@ -73,7 +73,7 @@ function ResBody() {
                       onClick={() => {
                       // filter logic here
                       const filteredList = listOfRestaurants.filter(
-                    (res) => res.data.avgRating > 4
+                    (res) => res.info.avgRating > 4
                   );
                   setListOfRestaurants(filteredList); 
                   }}>
@@ -92,14 +92,14 @@ function ResBody() {
                 {
                     filteredRestaurant?.map((restaurant) => (
                     <Link 
-                      key={restaurant?.data?.id} 
-                      to={"/restaurants/"+ restaurant?.data?.id }>
+                      key={restaurant?.info?.id} 
+                      to={"/restaurants/"+ restaurant?.info?.id }>
                         {/* if the restaurant is promoted then add a promotion label to it */
 
-                          restaurant?.data?.promoted ? (
-                            <RestaurantCardPromoted resData={restaurant}/>
+                          restaurant?.info?.promoted ? (
+                            <RestaurantCardPromoted resData={restaurant?.info}/>
                           ) :( 
-                          <Rescard  resData={restaurant}/>
+                          <Rescard  resData={restaurant?.info}/>
                           )
                         }
                     </Link>
