@@ -36,7 +36,7 @@ function App() {
   return (
     <div>
       {/* here <UserContext.Provider></UserContext.Provider> is used to pass dynamic data to all the components if required   */}
-      <Provider store={appStore()}>
+      <Provider store={appStore}>
         <UserContext.Provider value={ {loggedInUser: userName, setUserName} }>
           <Header/>
           <Outlet /> 
