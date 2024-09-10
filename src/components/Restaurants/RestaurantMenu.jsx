@@ -16,8 +16,8 @@ const RestaurantMenu = () => {
     
     if(resInfo === null) return <Shimmer/>
 
-    // const { name, cuisines, costForTwoMessage } = resInfo?.data?.cards[4]?.card?.card?.info;
-
+    const name = resInfo?.data?.cards[0]?.card?.card?.text;
+    console.log("resInfo", resInfo)
     //const {itemCards} = resInfo?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
 
     const categories = resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
@@ -29,8 +29,8 @@ const RestaurantMenu = () => {
 
     return(
         <div className="text-center">
-            {/* <h1 className="font-bold my-6 text-2xl">{name}</h1>
-            <p className="font-bold text-lg">
+             <h1 className="font-bold my-6 text-2xl">{name}</h1>
+            {/*.<p className="font-bold text-lg">
                 {cuisines.join(", ")} - {costForTwoMessage}
             </p> */}
             {/* displaying all the restaurants in accordions form */}

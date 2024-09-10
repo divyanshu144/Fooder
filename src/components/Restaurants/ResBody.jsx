@@ -6,6 +6,7 @@ import Rescard, { withPromotedLabel } from './Rescard';
 import { useContext, useEffect, useState } from 'react';  //named Import
 import useOnlineStatus from '../../utils/useOnlineStatus';
 import UserContext from '../../utils/UserContext';
+import TopRestaurants from './TopRestaurants';
 
 function ResBody() {
 
@@ -89,6 +90,9 @@ function ResBody() {
                       onChange={( (e) => setUserName(e.target.value))} 
                     />
                 </div>
+          </div>
+          <div>
+            <TopRestaurants/>
           </div>
             <div className="flex flex-wrap ">
                 {
