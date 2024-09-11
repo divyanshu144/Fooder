@@ -49,40 +49,44 @@ function ResBody() {
         <Shimmer/> 
       ) : (
         <div className="body">
-          <div className="filter flex">
-            <div className="search m-4 p-4">
-                <input type="text" className="border border-solid border-black" 
-                value={searchText} 
-                onChange={(e) => {
-                  const value = e.target.value;
-                  setSearchText(value);
-            
-                  if (value.trim() === "") {
-                    // If input is cleared, reset to original data
-                    setFilteredRestaurant(listOfRestaurants);
-                  } else {
-                    // Filter the restaurant list based on input
-                    const filteredRestaurant = listOfRestaurants.filter((res) =>
-                      res.info.name.toLowerCase().includes(value.toLowerCase())
-                    );
-                    setFilteredRestaurant(filteredRestaurant);
-                  }
-                }} />
-                <button className="px-4 py-2 bg-green-100 m-4 rounded-xl"
-                  onClick={() => {
-                    if (searchText.trim() === "") {
-                      // If the search field is empty, reset to original data
+          <div className="filter flex m-4 p-4 ml-16 flex items-center space-x-12 bg-white  rounded-lg">
+          <div className="search space-x-4 ">
+              <input
+                  type="text"
+                  className="flex-1 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Search restaurants..."
+                  value={searchText}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setSearchText(value);
+
+                    if (value.trim() === "") {
                       setFilteredRestaurant(listOfRestaurants);
                     } else {
-                      // Filter the restaurant cards and update the UI
+                      const filteredRestaurant = listOfRestaurants.filter((res) =>
+                        res.info.name.toLowerCase().includes(value.toLowerCase())
+                      );
+                      setFilteredRestaurant(filteredRestaurant);
+                    }
+                  }}
+                />
+                <button
+                  className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  onClick={() => {
+                    if (searchText.trim() === "") {
+                      setFilteredRestaurant(listOfRestaurants);
+                    } else {
                       const filteredRestaurant = listOfRestaurants.filter((res) =>
                         res.info.name.toLowerCase().includes(searchText.toLowerCase())
                       );
                       setFilteredRestaurant(filteredRestaurant);
                     }
-                  }}>
-                  Search</button>
+                  }}
+                >
+                  Search
+              </button>
             </div>
+
                 {/* <div className='m-4 p-4 flex items-center'>
                     <button className="px-4 py-2 bg-blue-200 rounded-xl" 
                       onClick={() => {
@@ -94,14 +98,17 @@ function ResBody() {
                   }}>
                   Top Rated Restaurants</button>
                 </div> */}
-                <div className='m-4 p-4 flex items-center'>
-                  <label className="px-4 bg-red-400 rounded-xl">username: </label>
-                    <input 
-                      className="border border-solid border-black m-2 p-[5px] rounded-lg"
-                      value={loggedInUser}
-                      onChange={( (e) => setUserName(e.target.value))} 
-                    />
-                </div>
+              <div className="flex items-center space-x-4 ">
+                  <label className="text-gray-700 font-semibold bg-red-500 text-white px-4 py-2 rounded-full">
+                    Username:
+                  </label>
+                  <input
+                    className="flex-1 border border-gray-300 rounded-lg px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value={loggedInUser}
+                    onChange={(e) => setUserName(e.target.value)}
+                    placeholder="Enter your username"
+                  />
+              </div>
           </div>
           <div className="ml-16">
             <div>
