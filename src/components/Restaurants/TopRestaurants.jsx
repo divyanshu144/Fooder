@@ -80,12 +80,8 @@ const TopRestaurants = (props) => {
                     <h4 className="text-gray-600 font-bold text-sm">{card.info.sla.deliveryTime} min</h4>
                 </div>
                 <h4 className=" font-gilory text-gray-600 mb-1 text-sm">{card.info.cuisines.slice(0, 3).join(", ")}</h4>
-                {/* <h4 className="text-gray-600 mb-1 flex items-center space-x-1">
-                    <StarIcon className="h-5 w-5 text-yellow-500" />
-                    <span>{avgRating}</span>
-                </h4>
-                 <h4 className="text-gray-600 mb-1">Cost for two: {costForTwo}</h4> 
-                <h4 className="text-gray-600">{resData.sla.deliveryTime} minutes</h4> */}
+                 {/* <h4 className="text-gray-600 mb-1">Cost for two: {costForTwo}</h4>  */}
+                
             </div>
                 </div>
                 ))}

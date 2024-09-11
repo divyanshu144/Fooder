@@ -33,11 +33,11 @@ function ResBody() {
      console.log(json);
 
     //optional chaining
-    setListOfRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
-    setFilteredRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
-    setTopRest(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+    setListOfRestaurants(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+    setFilteredRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+    setTopRest(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
 
-     console.log("resbody", json?.data)
+     //console.log("resbody", json?.data)
   };
 
   //console.log(listOfRestaurants);
@@ -45,11 +45,6 @@ function ResBody() {
   const onlineStatus = useOnlineStatus();
 
   if(onlineStatus === false) return <h1>Looks like you are offline!! Please check your conncetion;</h1>
-
-  // Conditional Rendering
-    // if(listOfRestaurants.length === 0) {
-    //   return <Shimmer/>
-    // }
 
     return listOfRestaurants?.length === 0 ? (
         <Shimmer/> 
@@ -97,6 +92,7 @@ function ResBody() {
             <div>
               <TopRestaurants topResData={topRest}/>
             </div>
+            <h2 className="text-3xl font-bold text-gray-800 mb-6 ml-6">Restaurants with online food delivery</h2>
             <div className="flex flex-wrap ">
                 {
                     filteredRestaurant?.map((restaurant) => (
@@ -108,7 +104,7 @@ function ResBody() {
                           restaurant?.info?.promoted ? (
                             <RestaurantCardPromoted resData={restaurant?.info}/>
                           ) :( 
-                          <Rescard  resData={restaurant?.info}/>
+                              <Rescard  resData={restaurant?.info}/>
                           )
                         }
                     </Link>

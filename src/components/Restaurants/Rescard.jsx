@@ -18,6 +18,7 @@ const {
     //console.log("resData", resData)
 
     return (
+    <>
         <div className="m-4 p-6 w-[300px] h-[400px] rounded-xl bg-white shadow-lg hover:shadow-xl transition-shadow duration-500 ease-in-out">
             <img
                 className="w-full h-2/3 object-cover rounded-t-xl"
@@ -34,14 +35,10 @@ const {
                     <h4 className="text-gray-600 font-bold text-sm">{resData.sla.deliveryTime} minutes</h4>
                 </div>
                 <h4 className=" font-gilory text-gray-600 mb-1 text-sm">{cuisines.slice(0, 3).join(", ")}</h4>
-                {/* <h4 className="text-gray-600 mb-1 flex items-center space-x-1">
-                    <StarIcon className="h-5 w-5 text-yellow-500" />
-                    <span>{avgRating}</span>
-                </h4>
-                 <h4 className="text-gray-600 mb-1">Cost for two: {costForTwo}</h4> 
-                <h4 className="text-gray-600">{resData.sla.deliveryTime} minutes</h4> */}
+                 {/*<h4 className="text-gray-600 mb-1">Cost for two: {costForTwo}</h4> */}
             </div>
         </div>
+    </>
     );
 }
 
