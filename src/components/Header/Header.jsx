@@ -6,17 +6,24 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import useOnlineStatus from '../../utils/useOnlineStatus';
 import UserContext from '../../utils/UserContext';
+import Drawer from '../Drawer';
 
 export const Header = () => {
   
   //const btnName = "Login"
-  
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
   const [btnNameReact, setbtnNameReact] = useState("Login");
   const onelineStatus = useOnlineStatus();
 
   const {loggedInUser} = useContext(UserContext)
 
   const cartItems = useSelector((store) => store.cart.items);
+
+  const toggleDrawer = () => {
+    setIsDrawerOpen(!isDrawerOpen);
+  };
+
 
   return (
     <div className="flex justify-between">
@@ -45,19 +52,15 @@ export const Header = () => {
             <li className="px-4 font-bold text-xl">
               <Link to="/cart">Cart - ({cartItems.length} items)</Link>
             </li>
-            <button className="login" onClick={() => {
-             btnNameReact === "Login" 
-             ? setbtnNameReact("Logout") 
-             : setbtnNameReact("Login");
-              
-            }}>
-              {btnNameReact}
-              </button>
+            <button className="login" onClick={toggleDrawer} >
+              sign in
+            </button>
               <li className="px-4 font-bold">
                   { loggedInUser }
               </li>
           </ul>
         </div>
+        <Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
     </div>
   );
 }
