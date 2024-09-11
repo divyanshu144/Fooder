@@ -39,9 +39,9 @@ const TopRestaurants = (props) => {
   };
 
   return (
-        <div className="relative p-6 rounded-lg ">
+        <div className="p-6 rounded-lg ">
                 {/* Arrows */}
-            <div className="absolute top-4 left-[84%] flex space-x-2">
+            <div className="top-4 ml-[84%] flex space-x-2">
                 <button 
                 onClick={handlePrev} 
                 className="bg-gray-200 p-2 rounded-full hover:bg-gray-300 disabled:opacity-50"

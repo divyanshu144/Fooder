@@ -12,6 +12,9 @@ export default {
       spacing: {
         'custom-margin': 'calc(10% + 52px)', 
       },
+      colors: {
+        'custom-orange': '#ff5200',
+      },
     },
   },
   plugins: [],

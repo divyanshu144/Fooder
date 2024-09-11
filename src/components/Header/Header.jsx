@@ -3,22 +3,22 @@ import { LOGO_URL } from '../../utils/constants';
 import { Link } from 'react-router-dom';
 // import useOnlineStatus from '../../utils/useOnlineStatus';
 // import UserContext from '../../utils/UserContext';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useOnlineStatus from '../../utils/useOnlineStatus';
 import UserContext from '../../utils/UserContext';
 import Drawer from '../Drawer';
 
 export const Header = () => {
   
-  //const btnName = "Login"
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
   const [btnNameReact, setbtnNameReact] = useState("Login");
   const onelineStatus = useOnlineStatus();
 
   const {loggedInUser} = useContext(UserContext)
 
   const cartItems = useSelector((store) => store.cart.items);
+
+  const dispatch = useDispatch();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
