@@ -19,7 +19,7 @@ function App() {
 
   useEffect( () => {
     const data = {
-      name: "Divyanshu Charak"
+      name: "Fooder"
     };
     setUserName(data.name);
 
