@@ -1,14 +1,61 @@
 // components/Drawer.js
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const Drawer = ({ isDrawerOpen, toggleDrawer }) => {
+  const drawerRef = useRef(null);
+
+  useEffect(() => {
+    if (isDrawerOpen) {
+      drawerRef.current?.querySelector('input, button')?.focus();
+    }
+  }, [isDrawerOpen]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!isDrawerOpen) return;
+
+      const focusableElements = drawerRef.current?.querySelectorAll('input, button, a, [tabindex]');
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (e.key === 'Tab') {
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isDrawerOpen]);
+
+  const handleDrawerClick = (e) => {
+    e.stopPropagation(); // Prevent clicks inside the drawer from closing it
+  };
+
+  if (!isDrawerOpen) return null; // Return null when the drawer is not open
+
   return (
     <>
       {/* Drawer */}
       <div
-        className={`fixed top-0 right-0 h-full bg-white shadow-lg transform ${
+        ref={drawerRef}
+        className={`fixed top-0 right-0 h-full w-[30%] bg-white shadow-lg transform ${
           isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
-        } transition-transform duration-300 ease-in-out w-80`}
+        } transition-transform duration-300 ease-in-out w-80 z-50`} // Ensure z-index is high
+        aria-hidden={!isDrawerOpen}
+        onClick={handleDrawerClick} // Stop clicks from closing the drawer
       >
         {/* Drawer Header */}
         <div className="p-4 border-b">
@@ -58,7 +105,7 @@ const Drawer = ({ isDrawerOpen, toggleDrawer }) => {
       {/* Overlay */}
       {isDrawerOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50"
+          className="fixed inset-0 bg-black bg-opacity-50 z-40" // Ensure z-index is lower than drawer
           onClick={toggleDrawer}
         />
       )}
