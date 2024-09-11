@@ -40,7 +40,6 @@ function ResBody() {
      //console.log("resbody", json?.data)
   };
 
-  //console.log(listOfRestaurants);
 
   const onlineStatus = useOnlineStatus();
 
@@ -55,20 +54,36 @@ function ResBody() {
                 <input type="text" className="border border-solid border-black" 
                 value={searchText} 
                 onChange={(e) => {
-                  setSearchText(e.target.value);
+                  const value = e.target.value;
+                  setSearchText(value);
+            
+                  if (value.trim() === "") {
+                    // If input is cleared, reset to original data
+                    setFilteredRestaurant(listOfRestaurants);
+                  } else {
+                    // Filter the restaurant list based on input
+                    const filteredRestaurant = listOfRestaurants.filter((res) =>
+                      res.info.name.toLowerCase().includes(value.toLowerCase())
+                    );
+                    setFilteredRestaurant(filteredRestaurant);
+                  }
                 }} />
                 <button className="px-4 py-2 bg-green-100 m-4 rounded-xl"
                   onClick={() => {
-                  // filter the restaurant cards and update the UI
-                 const filteredRestaurant = listOfRestaurants.filter(
-                   (res) => res.info.name.toLowerCase().includes(searchText.toLowerCase())
-                  );
-                  setFilteredRestaurant(filteredRestaurant);
-
-                }}>
+                    if (searchText.trim() === "") {
+                      // If the search field is empty, reset to original data
+                      setFilteredRestaurant(listOfRestaurants);
+                    } else {
+                      // Filter the restaurant cards and update the UI
+                      const filteredRestaurant = listOfRestaurants.filter((res) =>
+                        res.info.name.toLowerCase().includes(searchText.toLowerCase())
+                      );
+                      setFilteredRestaurant(filteredRestaurant);
+                    }
+                  }}>
                   Search</button>
             </div>
-                <div className='m-4 p-4 flex items-center'>
+                {/* <div className='m-4 p-4 flex items-center'>
                     <button className="px-4 py-2 bg-blue-200 rounded-xl" 
                       onClick={() => {
                       // filter logic here
@@ -78,7 +93,7 @@ function ResBody() {
                   setListOfRestaurants(filteredList); 
                   }}>
                   Top Rated Restaurants</button>
-                </div>
+                </div> */}
                 <div className='m-4 p-4 flex items-center'>
                   <label className="px-4 bg-red-400 rounded-xl">username: </label>
                     <input 
