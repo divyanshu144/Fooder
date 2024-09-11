@@ -10,15 +10,11 @@ const RestaurantMenu = () => {
 
     // custom hook created for fetching the data from API
     const resInfo = useRestaurantMenu(resId);
-
     const [showIndex, setShowIndex] = useState(null);
-    
     
     if(resInfo === null) return <Shimmer/>
 
-    //const name = resInfo?.data?.cards[0]?.card?.card?.text;
-    console.log("resInfo", resInfo)
-
+  console.log("resInfo", resInfo)
     const {name, totalRatingsString, cuisines, costForTwoMessage, areaName, avgRating, sla} = resInfo?.data?.cards[2]?.card?.card?.info
     //const {itemCards} = resInfo?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
 
@@ -27,7 +23,6 @@ const RestaurantMenu = () => {
             c.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
     )
 
-    // console.log(categories)
 
     return(
     <>
@@ -38,7 +33,6 @@ const RestaurantMenu = () => {
 
       {/* Details Section */}
       <div className="bg-white p-6 rounded-lg shadow-md mb-6">
-        {/* Rating, Cuisine, and Price */}
         <div className="flex items-center mb-3">
           <span className="flex items-center text-green-600 font-semibold">
             <svg
