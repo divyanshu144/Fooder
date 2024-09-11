@@ -26,7 +26,7 @@ const {
                 src={CDN_URL + cloudinaryImageId}
             />
             <div className="p-4">
-                <h3 className="font-gilroy font-bold text-xl text-gray-800 mb-2">{name}</h3>
+                <h3 className="font-gilroy font-bold text-lg text-gray-800 mb-2">{name}</h3>
                 <div className="flex items-center space-x-3 mb-2">
                     <h4 className="text-gray-600 flex items-center space-x-1">
                         <StarIcon className="h-5 w-5 text-green-500" />
@@ -34,7 +34,7 @@ const {
                     </h4>
                     <h4 className="text-gray-600 font-bold text-sm">{resData.sla.deliveryTime} minutes</h4>
                 </div>
-                <h4 className=" font-gilory text-gray-600 mb-1 text-sm">{cuisines.slice(0, 3).join(", ")}</h4>
+                <h4 className=" font-gilory font-semibold text-gray-600 mb-1 text-xs">{cuisines.slice(0, 3).join(", ")}</h4>
                  {/*<h4 className="text-gray-600 mb-1">Cost for two: {costForTwo}</h4> */}
             </div>
         </div>
