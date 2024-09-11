@@ -14,6 +14,7 @@ function ResBody() {
 
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
+  const [topRest, setTopRest] = useState([])
 
   const RestaurantCardPromoted = withPromotedLabel(Rescard);
 
@@ -34,8 +35,9 @@ function ResBody() {
     //optional chaining
     setListOfRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
     setFilteredRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+    setTopRest(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
 
-    // console.log(json?.data?)
+     console.log("resbody", json?.data)
   };
 
   //console.log(listOfRestaurants);
@@ -91,9 +93,10 @@ function ResBody() {
                     />
                 </div>
           </div>
-          <div>
-            <TopRestaurants/>
-          </div>
+          <div className="ml-16">
+            <div>
+              <TopRestaurants topResData={topRest}/>
+            </div>
             <div className="flex flex-wrap ">
                 {
                     filteredRestaurant?.map((restaurant) => (
@@ -113,6 +116,7 @@ function ResBody() {
                 }
             </div>
 
+          </div>
         </div>
     );
 

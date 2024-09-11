@@ -15,7 +15,7 @@ const {
 
     } = resData;
 
-    console.log("resData", resData)
+    //console.log("resData", resData)
 
     return (
         <div className="m-4 p-6 w-[300px] h-[400px] rounded-xl bg-white shadow-lg hover:shadow-xl transition-shadow duration-500 ease-in-out">
