@@ -5,7 +5,14 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      borderColor: {
+        'custom-rgba': 'rgba(2, 6, 12, 0.05)',
+      },
+      spacing: {
+        'custom-margin': 'calc(10% + 52px)', 
+      },
+    },
   },
   plugins: [],
 }

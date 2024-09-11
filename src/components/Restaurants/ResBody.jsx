@@ -92,24 +92,27 @@ function ResBody() {
             <div>
               <TopRestaurants topResData={topRest}/>
             </div>
-            <h2 className="text-3xl font-bold text-gray-800 mb-6 ml-6">Restaurants with online food delivery</h2>
-            <div className="flex flex-wrap ">
-                {
-                    filteredRestaurant?.map((restaurant) => (
-                    <Link 
-                      key={restaurant?.info?.id} 
-                      to={"/restaurants/"+ restaurant?.info?.id }>
-                        {/* if the restaurant is promoted then add a promotion label to it */
+            <hr className="border border-custom-rgba m-[32px] w-[87%]"/>
+            <div>
+              <h2 className="text-3xl font-extrabold text-gray-800 mb-6 ml-6">Restaurants with online food delivery</h2>
+              <div className="flex flex-wrap ">
+                  {
+                      filteredRestaurant?.map((restaurant) => (
+                      <Link 
+                        key={restaurant?.info?.id} 
+                        to={"/restaurants/"+ restaurant?.info?.id }>
+                          {/* if the restaurant is promoted then add a promotion label to it */
 
-                          restaurant?.info?.promoted ? (
-                            <RestaurantCardPromoted resData={restaurant?.info}/>
-                          ) :( 
-                              <Rescard  resData={restaurant?.info}/>
-                          )
-                        }
-                    </Link>
-                    ))
-                }
+                            restaurant?.info?.promoted ? (
+                              <RestaurantCardPromoted resData={restaurant?.info}/>
+                            ) :( 
+                                <Rescard  resData={restaurant?.info}/>
+                            )
+                          }
+                      </Link>
+                      ))
+                  }
+              </div>
             </div>
 
           </div>

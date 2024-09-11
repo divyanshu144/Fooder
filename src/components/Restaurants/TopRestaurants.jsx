@@ -57,7 +57,7 @@ const TopRestaurants = (props) => {
                 <FaArrowRight />
                 </button>
             </div>
-            <h2 className="text-3xl font-bold text-gray-800 mb-6">Top Restaurants</h2>
+            <h2 className="text-3xl font-extrabold text-gray-800 mb-6">Top Restaurants</h2>
                 {/* Card Container */}
             <div className="flex space-x-6 overflow-hidden">
                 {topResData.slice(currentIndex, currentIndex + cardsPerPage).map((card) => (
