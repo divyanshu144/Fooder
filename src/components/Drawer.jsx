@@ -1,27 +1,115 @@
-import React, { useState } from 'react';
-import { loginUser, signupUser } from '../utils/authSlice';
+import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { checkValidData } from '../utils/validate';
+import { auth } from '../firebase';
+import { addUser } from '../utils/userSlice';
+import PopUp from './PopUp';
 
 const Drawer = ({ isDrawerOpen, toggleDrawer }) => {
+    
+    const [isSignInForm, setisSignInForm] = useState(true);
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [userLoggedIn, setUserLoggedIn] = useState(null);
+
+    console.log("user", userLoggedIn)
+
     const dispatch = useDispatch();
-    const [isSignup, setIsSignup] = useState(false);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [username, setUsername] = useState(''); // Only needed for signup
-    const authState = useSelector((state) => state.auth);
-  
+    
+    // ref for accessing the values of email and password from input tag
+    const name = useRef(null)
+    const email = useRef(null);
+    const password = useRef(null);
+
     const handleDrawerClick = (e) => {
       e.stopPropagation();
     };
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      if (isSignup) {
-        dispatch(signupUser({ email, password, username }));
-      } else {
-        dispatch(loginUser({ email, password }));
-      }
-    };
+
+    const toggleSignInForm = () => {
+        setisSignInForm(!isSignInForm)
+    }
+
+    const handleButtonClick = () => {
+        // validate the form data
+
+       // console.log(email.current.value);
+       // console.log(password.current.value);
+
+       const message =  checkValidData(email.current.value, password.current.value)
+       setErrorMessage(message);
+       // if form is valid then i can proceed for sign in or sign up
+
+       if(message) return; // if there is a message then return that i.e whatever the error message
+
+
+       if(!isSignInForm){
+
+        //sign up logic
+            createUserWithEmailAndPassword(
+                auth, 
+                email.current.value, 
+                password.current.value
+                )
+
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+
+                    updateProfile(user, {
+                        displayName: name.current.value , 
+                      })
+                      .then(() => {
+                        // Profile updated!
+                        // so we will update our store once again
+                        const {uid, email, displayName} = auth.currentUser;
+                        //here we are getting these uid, email, displayname and photoURL from the updated value of user not the old value
+                        dispatch(addUser({ 
+                                        uid: uid, 
+                                        emai: email,
+                                        displayName: displayName,  
+                            }));
+                            setUserLoggedIn(auth.currentUser);  // Trigger the pop-up
+                      })
+                      .catch((error) => {
+                        // An error occurred
+                        setErrorMessage(error.message)
+                      });
+                    
+                 })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+
+                    setErrorMessage(errorCode + "-" + errorMessage)
+                });
+
+       }
+       else {
+            // sign in logic
+
+            signInWithEmailAndPassword(
+                auth, 
+                email.current.value, 
+                password.current.value
+                )
+
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                setUserLoggedIn(user);  // Trigger the pop-up
+                //console.log(user);
+            
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+
+                setErrorMessage(errorCode + "-" + errorMessage)
+            })
+        
+       }
+
+    }
   
     return (
       <>
@@ -42,7 +130,7 @@ const Drawer = ({ isDrawerOpen, toggleDrawer }) => {
         >
           {/* Drawer Header */}
           <div className="pl-44 pr-[160px] mt-24">
-            <h2 className="text-xl font-semibold">{isSignup ? 'Sign Up' : 'Sign In'}</h2>
+            <h2 className="text-xl font-semibold">{isSignInForm ? 'Sign Up' : 'Sign In'}</h2>
             <button onClick={toggleDrawer} className="absolute top-4 right-4 text-gray-600">
               &times;
             </button>
@@ -50,14 +138,13 @@ const Drawer = ({ isDrawerOpen, toggleDrawer }) => {
   
           {/* Drawer Body: Login/Signup Form */}
           <div className="pl-10 pr-[160px] w-[562px] mt-8">
-            <form onSubmit={handleSubmit}>
-              {isSignup && (
+            <form onSubmit={ (e) => e.preventDefault()}>
+              { !isSignInForm && (
                 <div className="mb-4">
                   <label className="block text-sm font-medium text-gray-700">Username</label>
                   <input
                     type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    ref={name}
                     className="mt-1 block w-full p-2 border border-gray-300 rounded"
                     placeholder="Enter your username"
                   />
@@ -67,8 +154,7 @@ const Drawer = ({ isDrawerOpen, toggleDrawer }) => {
                 <label className="block text-sm font-medium text-gray-700">Email</label>
                 <input
                   type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  ref={email}
                   className="mt-1 block w-full p-2 border border-gray-300 rounded"
                   placeholder="Enter your email"
                   autoFocus
@@ -78,31 +164,31 @@ const Drawer = ({ isDrawerOpen, toggleDrawer }) => {
                 <label className="block text-sm font-medium text-gray-700">Password</label>
                 <input
                   type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  ref={password}
                   className="mt-1 block w-full p-2 border border-gray-300 rounded"
                   placeholder="Enter your password"
                 />
               </div>
+              <p className="text-red-500 font-bold text-lg py-2">{errorMessage}</p>
               <button
-                type="submit"
+                onClick={handleButtonClick}
                 className="w-full py-2 bg-custom-orange text-white rounded-lg hover:bg-custom-orange"
               >
-                {isSignup ? 'Sign Up' : 'Sign In'}
+                {isSignInForm ? 'Sign Up' : 'Sign In'}
               </button>
               <div className="mt-4 text-center">
                 <p>
-                  {isSignup ? (
+                  {isSignInForm ? (
                     <>
                       Already have an account?{' '}
-                      <button type="button" onClick={() => setIsSignup(false)} className="text-blue-500 hover:underline">
+                      <button type="button" onClick={toggleSignInForm} className="text-blue-500 hover:underline">
                         Sign In
                       </button>
                     </>
                   ) : (
                     <>
                       Don't have an account?{' '}
-                      <button type="button" onClick={() => setIsSignup(true)} className="text-blue-500 hover:underline">
+                      <button type="button" onClick={toggleSignInForm} className="text-blue-500 hover:underline">
                         Sign Up
                       </button>
                     </>
@@ -112,6 +198,12 @@ const Drawer = ({ isDrawerOpen, toggleDrawer }) => {
             </form>
           </div>
         </div>
+        
+         {/* Pop-up */}
+         {userLoggedIn && (
+          <PopUp user={userLoggedIn} />
+        )}
+
       </>
     );
   };
