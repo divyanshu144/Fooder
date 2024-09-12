@@ -128,7 +128,7 @@ const Drawer = ({ isDrawerOpen, toggleDrawer }) => {
         >
           {/* Drawer Header */}
           <div className="pl-44 pr-[160px] mt-24">
-            <h2 className="text-xl font-semibold">{isSignInForm ? 'Sign Up' : 'Sign In'}</h2>
+            <h2 className="text-xl font-semibold">{isSignInForm ? 'Sign In' : 'Sign Up'}</h2>
             <button onClick={toggleDrawer} className="absolute top-4 right-4 text-gray-600">
               &times;
             </button>
@@ -172,24 +172,24 @@ const Drawer = ({ isDrawerOpen, toggleDrawer }) => {
                 onClick={handleButtonClick}
                 className="w-full py-2 bg-custom-orange text-white rounded-lg hover:bg-custom-orange"
               >
-                {isSignInForm ? 'Sign Up' : 'Sign In'}
+                {isSignInForm ? 'Sign In' : 'Sign Up'}
               </button>
               <div className="mt-4 text-center">
                 <p>
                   {isSignInForm ? (
                     <>
-                      Already have an account?{' '}
-                      <button type="button" onClick={toggleSignInForm} className="text-blue-500 hover:underline">
-                        Sign In
-                      </button>
-                    </>
-                  ) : (
-                    <>
                       Don't have an account?{' '}
                       <button type="button" onClick={toggleSignInForm} className="text-blue-500 hover:underline">
                         Sign Up
                       </button>
-                    </>
+                  </>
+                  ) : (
+                    <>
+                      Already have an account?{' '}
+                      <button type="button" onClick={toggleSignInForm} className="text-blue-500 hover:underline">
+                        Sign In
+                      </button>
+                  </>
                   )}
                 </p>
               </div>

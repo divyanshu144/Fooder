@@ -24,6 +24,43 @@ export const Header = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
 
+//   const handleSignOut = () => {
+
+//     signOut(auth)
+//     .then(() => {})
+    
+//     .catch((error) => {
+//       // An error happened.
+//       navigate("/error")
+//     });
+//   }
+
+//   useEffect( ()=> {
+
+//    const unsubscribe =  onAuthStateChanged(auth, (user) => {
+//         if (user) {
+          
+//           const {uid, email, displayName, photoURL} = user
+//           dispatch(addUser({ 
+//                       uid: uid, 
+//                       emai: email,
+//                       displayName: displayName, 
+//                       photoURL: photoURL 
+//                     }));
+//           //after user sign in, we will take him to browse page
+//          navigate('/browse')
+//         } else {
+//           // User is signed out
+//           dispatch(removeUser());
+//           navigate('/')
+//         }
+//       });
+
+//       return () => unsubscribe();
+//       // whenever my header components unloads/ ummounts then it will unsubscirbe the onAuthStateChanged api
+      
+// }, [])
+
 
   return (
     <div className="flex justify-between">
