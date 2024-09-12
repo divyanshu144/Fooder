@@ -4,6 +4,8 @@ const PopUp = ({ user}) => {
 
     const [visible, setVisible] = useState(true);
 
+    console.log("user", user)
+
   useEffect(() => {
     const timer = setTimeout(() => {
         setVisible(false);

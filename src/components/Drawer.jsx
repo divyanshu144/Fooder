@@ -12,8 +12,6 @@ const Drawer = ({ isDrawerOpen, toggleDrawer }) => {
     const [errorMessage, setErrorMessage] = useState(null);
     const [userLoggedIn, setUserLoggedIn] = useState(null);
 
-    console.log("user", userLoggedIn)
-
     const dispatch = useDispatch();
     
     // ref for accessing the values of email and password from input tag
@@ -61,7 +59,7 @@ const Drawer = ({ isDrawerOpen, toggleDrawer }) => {
                       .then(() => {
                         // Profile updated!
                         // so we will update our store once again
-                        const {uid, email, displayName} = auth.currentUser;
+                        const {uid, email, displayName} = user;
                         //here we are getting these uid, email, displayname and photoURL from the updated value of user not the old value
                         dispatch(addUser({ 
                                         uid: uid, 
