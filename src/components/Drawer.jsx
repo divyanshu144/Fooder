@@ -128,7 +128,7 @@ const Drawer = ({ isDrawerOpen, toggleDrawer }) => {
         >
           {/* Drawer Header */}
           <div className="pl-44 pr-[160px] mt-24">
-            <h2 className="text-xl font-semibold">{isSignInForm ? 'Sign In' : 'Sign Up'}</h2>
+            <h2 className="text-xl font-semibold text-gray-700">{isSignInForm ? 'Sign In' : 'Sign Up'}</h2>
             <button onClick={toggleDrawer} className="absolute top-4 right-4 text-gray-600">
               &times;
             </button>
@@ -178,14 +178,14 @@ const Drawer = ({ isDrawerOpen, toggleDrawer }) => {
                 <p>
                   {isSignInForm ? (
                     <>
-                      Don't have an account?{' '}
+                     <span className="text-gray-700">Don't have an account?{' '}</span>
                       <button type="button" onClick={toggleSignInForm} className="text-blue-500 hover:underline">
                         Sign Up
                       </button>
                   </>
                   ) : (
                     <>
-                      Already have an account?{' '}
+                      <span className="text-gray-700">Already have an account?{' '}</span>
                       <button type="button" onClick={toggleSignInForm} className="text-blue-500 hover:underline">
                         Sign In
                       </button>
