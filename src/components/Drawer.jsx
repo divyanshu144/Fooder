@@ -143,7 +143,7 @@ const Drawer = ({ isDrawerOpen, toggleDrawer }) => {
                   <input
                     type="text"
                     ref={name}
-                    className="mt-1 block w-full p-2 border border-gray-300 rounded"
+                    className="mt-1 block w-full p-2 border border-gray-300 rounded text-gray-500"
                     placeholder="Enter your username"
                   />
                 </div>
@@ -153,7 +153,7 @@ const Drawer = ({ isDrawerOpen, toggleDrawer }) => {
                 <input
                   type="email"
                   ref={email}
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded text-gray-500"
                   placeholder="Enter your email"
                   autoFocus
                 />
@@ -163,7 +163,7 @@ const Drawer = ({ isDrawerOpen, toggleDrawer }) => {
                 <input
                   type="password"
                   ref={password}
-                  className="mt-1 block w-full p-2 border border-gray-300 rounded"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded text-gray-500"
                   placeholder="Enter your password"
                 />
               </div>
