@@ -1,65 +1,79 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { LOGO_URL } from '../../utils/constants';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import useOnlineStatus from '../../utils/useOnlineStatus';
 // import UserContext from '../../utils/UserContext';
 import { useDispatch, useSelector } from 'react-redux';
 import useOnlineStatus from '../../utils/useOnlineStatus';
 import UserContext from '../../utils/UserContext';
 import Drawer from '../Drawer';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { addUser, removeUser } from '../../utils/userSlice';
+import { auth } from '../../firebase';
 
 export const Header = () => {
   
-  const [btnNameReact, setbtnNameReact] = useState("Login");
   const onelineStatus = useOnlineStatus();
 
   const {loggedInUser} = useContext(UserContext)
 
   const cartItems = useSelector((store) => store.cart.items);
+  const user = useSelector(store => store.user)
 
   const dispatch = useDispatch();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
 
-//   const handleSignOut = () => {
+  const handleSignOut = () => {
 
-//     signOut(auth)
-//     .then(() => {})
+    signOut(auth)
+    .then(() => {})
     
-//     .catch((error) => {
-//       // An error happened.
-//       navigate("/error")
-//     });
-//   }
+    .catch((error) => {
+      // An error happened.
+      navigate("/error")
+    });
+  }
 
-//   useEffect( ()=> {
+  useEffect( ()=> {
 
-//    const unsubscribe =  onAuthStateChanged(auth, (user) => {
-//         if (user) {
+   const unsubscribe =  onAuthStateChanged(auth, (user) => {
+        if (user) {
           
-//           const {uid, email, displayName, photoURL} = user
-//           dispatch(addUser({ 
-//                       uid: uid, 
-//                       emai: email,
-//                       displayName: displayName, 
-//                       photoURL: photoURL 
-//                     }));
-//           //after user sign in, we will take him to browse page
-//          navigate('/browse')
-//         } else {
-//           // User is signed out
-//           dispatch(removeUser());
-//           navigate('/')
-//         }
-//       });
+          const {uid, email, displayName} = user
+          dispatch(addUser({ 
+                      uid: uid, 
+                      emai: email,
+                      displayName: displayName, 
+                    }));
 
-//       return () => unsubscribe();
-//       // whenever my header components unloads/ ummounts then it will unsubscirbe the onAuthStateChanged api
+          //after user sign in, we will close the drawer
+          
+          const drawerCloseTimeout = setTimeout(() => {
+            setIsDrawerOpen(false);
+          }, 3000);
+
+         navigate('/')
+
+         //Cleanup the timeout if the component unmounts before 3 seconds
+        return () => clearTimeout(drawerCloseTimeout);
+
+        } else {
+          // User is signed out
+          dispatch(removeUser());
+          navigate('/')
+        }
+      });
+
+      return () => unsubscribe();
+      // whenever my header components unloads/ ummounts then it will unsubscirbe the onAuthStateChanged api
       
-// }, [])
+}, [])
 
 
   return (
@@ -89,9 +103,17 @@ export const Header = () => {
             <li className="px-4 font-bold text-xl">
               <Link to="/cart">Cart - ({cartItems.length} items)</Link>
             </li>
-            <button className="login" onClick={toggleDrawer} >
-              sign in
+            {user ? (
+            // If logged in, show "Sign out" button
+            <button className="login" onClick={handleSignOut}>
+              Sign out
             </button>
+          ) : (
+            // If not logged in, show "Sign in" button
+            <button className="login" onClick={toggleDrawer}>
+              Sign in
+            </button>
+          )}
               <li className="px-4 font-bold">
                   { loggedInUser }
               </li>
