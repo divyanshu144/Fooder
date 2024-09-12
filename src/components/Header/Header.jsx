@@ -53,7 +53,7 @@ export const Header = () => {
                     }));
 
           //after user sign in, we will close the drawer
-          
+
           const drawerCloseTimeout = setTimeout(() => {
             setIsDrawerOpen(false);
           }, 3000);
@@ -77,49 +77,56 @@ export const Header = () => {
 
 
   return (
-    <div className="flex justify-between">
-        <div className="logo-container">
-            <img className="w-40" 
-            src={LOGO_URL } 
-            alt="Fooder" />
-        </div>
-        <div className="flex items-center">
-          <ul className="flex p-4 m-4 shadow-md">
-            <li className="px-4">
-              Online Status: {onelineStatus ? "🟢" : "🔴" }
-            </li>
-            <li className="px-4">
+    <div className="flex justify-between items-center bg-gray-900 text-white px-6 py-4 shadow-lg">
+      {/* Logo Section */}
+      <div className="logo-container">
+        <img className="w-20 rounded-lg transition-transform hover:scale-105" src={LOGO_URL} alt="Fooder" />
+      </div>
+
+      {/* Navigation Links and Cart */}
+      <div className="flex items-center space-x-6">
+        <ul className="flex space-x-8 text-lg font-semibold">
+          <li className="hover:text-orange-400 transition duration-200">
+            Online Status: {onelineStatus ? "🟢" : "🔴"}
+          </li>
+          <li className="hover:text-orange-400 transition duration-200">
             <Link to="/">Home</Link>
-            </li>
-            <li className="px-4">
-              <Link to="/about">About Us</Link>
-              </li>
-            <li className="px-4">
+          </li>
+          <li className="hover:text-orange-400 transition duration-200">
+            <Link to="/about">About Us</Link>
+          </li>
+          <li className="hover:text-orange-400 transition duration-200">
             <Link to="/contact">Contact Us</Link>
-            </li>
-            <li className="px-4">
+          </li>
+          <li className="hover:text-orange-400 transition duration-200">
             <Link to="/grocery">Grocery</Link>
-            </li>
-            <li className="px-4 font-bold text-xl">
-              <Link to="/cart">Cart - ({cartItems.length} items)</Link>
-            </li>
-            {user ? (
-            // If logged in, show "Sign out" button
-            <button className="login" onClick={handleSignOut}>
+          </li>
+          <li className="font-bold text-xl text-orange-500 hover:text-orange-600 transition duration-200">
+            <Link to="/cart">Cart ({cartItems.length} items)</Link>
+          </li>
+        </ul>
+
+        {/* Sign-in/Sign-out Button */}
+        <div>
+          {user ? (
+            <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-full transition duration-200" onClick={handleSignOut}>
               Sign out
             </button>
           ) : (
-            // If not logged in, show "Sign in" button
-            <button className="login" onClick={toggleDrawer}>
+            <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-full transition duration-200" onClick={toggleDrawer}>
               Sign in
             </button>
           )}
-              <li className="px-4 font-bold">
-                  { loggedInUser }
-              </li>
-          </ul>
         </div>
-        <Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
+
+        {/* Logged In User */}
+        <div className="font-bold ml-4">
+          {loggedInUser}
+        </div>
+      </div>
+
+      {/* Drawer */}
+      <Drawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
     </div>
   );
 }

@@ -48,8 +48,8 @@ function ResBody() {
     return listOfRestaurants?.length === 0 ? (
         <Shimmer/> 
       ) : (
-        <div className="body">
-          <div className="filter flex m-4 p-4 ml-80 flex items-center space-x-12 bg-white rounded-lg">
+        <div className="body mt-16">
+          <div className="filter flex p-4 ml-80 flex items-center space-x-12 bg-white rounded-lg">
           <div className="search space-x-4 ">
               <input
                   type="text"
