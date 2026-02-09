@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../../utils/useRestaurantMenu";
 import ResCategory from "./ResCategory";
 import { useState } from "react";
+import { Card, Container, Section } from "../../ui";
 
 const RestaurantMenu = () => {
 
@@ -15,24 +16,30 @@ const RestaurantMenu = () => {
     if(resInfo === null) return <Shimmer/>
 
   console.log("resInfo", resInfo)
-    const {name, totalRatingsString, cuisines, costForTwoMessage, areaName, avgRating, sla} = resInfo?.data?.cards[2]?.card?.card?.info
-    //const {itemCards} = resInfo?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
 
-    const categories = resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
-        (c) => 
-            c.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
-    )
+    const cards = resInfo?.data?.cards || [];
+    const infoCard = cards.find((c) => c?.card?.card?.info)?.card?.card;
+    const groupedCard = cards.find((c) => c?.groupedCard?.cardGroupMap)?.groupedCard;
+
+    const {name, totalRatingsString, cuisines = [], costForTwoMessage, areaName, avgRating, sla = {}} =
+      infoCard?.info || {};
+
+    const categories = groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
+      (c) =>
+        c.card?.card?.["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    ) || [];
 
 
     return(
     <>
-    <div className="w-6/12 mx-auto p-4 mt-8">
+    <Container className="mt-8">
 
       {/* Title */}
-      <h1 className="text-2xl font-bold mb-4">{name}</h1>
+      <h1 className="text-3xl font-bold mb-4">{name}</h1>
 
       {/* Details Section */}
-      <div className="bg-white p-6 rounded-lg shadow-md mb-6">
+      <Card className="mb-6" variant="solid" size="lg">
         <div className="flex items-center mb-3">
           <span className="flex items-center text-green-600 font-semibold">
             <svg
@@ -85,26 +92,26 @@ const RestaurantMenu = () => {
         <div className="text-gray-500 text-sm">
           Order above ₹149 for discounted delivery fee
         </div>
-      </div>
+      </Card>
 
       {/* Deals Section */}
-      <h2 className="text-lg font-semibold mb-4">Deals for you</h2>
+      <Section title="Deals for you" size="sm">
       <div className="flex space-x-4">
         {/* First Deal */}
-        <div className="bg-gray-100 p-4 rounded-lg text-center shadow-md">
+        <div className="bg-gradient-to-br from-orange-50 to-rose-50 p-4 rounded-xl text-center shadow-sm border border-orange-100">
           <div className="text-blue-600 font-bold mb-2">Extra ₹15 Off</div>
           <div className="text-gray-600 text-xs">APPLICABLE OVER & ABOVE COUPONS</div>
         </div>
 
         {/* Second Deal */}
-        <div className="bg-gray-100 p-4 rounded-lg text-center shadow-md">
+        <div className="bg-gradient-to-br from-sky-50 to-indigo-50 p-4 rounded-xl text-center shadow-sm border border-sky-100">
           <div className="text-orange-600 font-bold mb-2">Flat ₹125 Off</div>
           <div className="text-gray-600 text-xs">USE SUPERSAVER</div>
         </div>
       </div>
-    </div>
+      </Section>
 
-    <hr className="border border-custom-rgba mt-[32px] w-[50%] ml-[25%]"/>
+    <hr className="border border-custom-rgba mt-10 w-[60%] mx-auto"/>
 
     {/* =============================================================================================================================== */}
         <div className="mx-auto p-4 text-center mt-8">
@@ -121,6 +128,7 @@ const RestaurantMenu = () => {
              )}
         
         </div>
+    </Container>
     </>
     )
 }

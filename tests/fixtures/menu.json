@@ -1,0 +1,52 @@
+{
+  "data": {
+    "cards": [
+      {
+        "card": {
+          "card": {
+            "info": {
+              "name": "Saffron Street",
+              "totalRatingsString": "1K+ ratings",
+              "cuisines": ["North Indian", "Biryani", "Kebabs"],
+              "costForTwoMessage": "₹350 for two",
+              "areaName": "Downtown",
+              "avgRating": 4.5,
+              "sla": { "minDeliveryTime": 20, "maxDeliveryTime": 30 }
+            }
+          }
+        }
+      },
+      {
+        "groupedCard": {
+          "cardGroupMap": {
+            "REGULAR": {
+              "cards": [
+                {
+                  "card": {
+                    "card": {
+                      "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+                      "title": "Recommended",
+                      "itemCards": [
+                        {
+                          "card": {
+                            "info": {
+                              "id": "i1",
+                              "name": "Chicken Biryani",
+                              "description": "Aromatic basmati rice with tender chicken.",
+                              "price": 25900,
+                              "imageId": ""
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}

@@ -9,6 +9,8 @@ import Contact from './components/Header/Contact';
 import RestaurantMenu from './components/Restaurants/RestaurantMenu';
 import appStore from './utils/appStore';
 import Cart from './components/Restaurants/Cart';
+import About from './components/Header/About';
+import Error from './components/Error';
 
 const Grocery = lazy( () => import("./components/Grocery/Grocery"))
 // here this lazy loading will let us to display the grocery component only when user clicks on it 
@@ -48,16 +50,17 @@ export const appRouter = createBrowserRouter([
   {
     path: "/",
     element: <App/>,
+    errorElement: <Error />,
     children: [
       {
         path: "/",
         element: <ResBody/>,
 
       },
-      // {
-      //   path: "/about",
-      //   element: <About/>,
-      // },
+      {
+        path: "/about",
+        element: <About/>,
+      },
       {
         path: "/contact",
         element: <Contact/>,
@@ -76,8 +79,11 @@ export const appRouter = createBrowserRouter([
         path: "/cart",
         element: <Cart />,
       },
+      {
+        path: "*",
+        element: <Error />,
+      },
     ],
-    // errorElement: <Error/>,
   },
 ])
 

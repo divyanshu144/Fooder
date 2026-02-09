@@ -1,0 +1,78 @@
+{
+  "data": {
+    "cards": [
+      {
+        "card": {
+          "card": {
+            "gridElements": {
+              "infoWithStyle": {
+                "restaurants": [
+                  {
+                    "info": {
+                      "id": "r1",
+                      "name": "Saffron Street",
+                      "cuisines": ["North Indian", "Biryani", "Kebabs"],
+                      "avgRating": 4.5,
+                      "costForTwo": "₹350 for two",
+                      "promoted": true,
+                      "cloudinaryImageId": "",
+                      "sla": { "deliveryTime": 22 }
+                    }
+                  },
+                  {
+                    "info": {
+                      "id": "r2",
+                      "name": "Green Bowl Co.",
+                      "cuisines": ["Salads", "Healthy", "Bowls"],
+                      "avgRating": 4.3,
+                      "costForTwo": "₹300 for two",
+                      "promoted": false,
+                      "cloudinaryImageId": "",
+                      "sla": { "deliveryTime": 28 }
+                    }
+                  },
+                  {
+                    "info": {
+                      "id": "r3",
+                      "name": "Slice District",
+                      "cuisines": ["Pizza", "Italian", "Fast Food"],
+                      "avgRating": 4.2,
+                      "costForTwo": "₹400 for two",
+                      "promoted": false,
+                      "cloudinaryImageId": "",
+                      "sla": { "deliveryTime": 30 }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "card": {
+          "card": {
+            "gridElements": {
+              "infoWithStyle": {
+                "restaurants": [
+                  {
+                    "info": {
+                      "id": "r4",
+                      "name": "Seoul Fire",
+                      "cuisines": ["Korean", "BBQ", "Asian"],
+                      "avgRating": 4.6,
+                      "costForTwo": "₹450 for two",
+                      "promoted": false,
+                      "cloudinaryImageId": "",
+                      "sla": { "deliveryTime": 26 }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

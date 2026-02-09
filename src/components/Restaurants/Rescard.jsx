@@ -1,10 +1,10 @@
-import { CDN_URL } from '../../utils/constants';
+import { CDN_URL, PLACEHOLDER_IMAGE } from '../../utils/constants';
 import { StarIcon } from '@heroicons/react/24/solid';
 
 
 function Rescard(props) {
 
-const {resData} = props;
+const { resData, isFavorite, onToggleFavorite } = props;
 
 const {
         cloudinaryImageId, 
@@ -17,25 +17,52 @@ const {
 
     //console.log("resData", resData)
 
+    const imageUrl = cloudinaryImageId ? CDN_URL + cloudinaryImageId : PLACEHOLDER_IMAGE;
+
     return (
     <>
-        <div className="m-4 p-6 w-[300px] h-[400px] rounded-xl bg-white shadow-lg hover:shadow-xl transition-shadow duration-500 ease-in-out">
-            <img
-                className="w-full h-2/3 object-cover rounded-t-xl"
-                alt="res-logo"
-                src={CDN_URL + cloudinaryImageId}
-            />
+        <div className="group m-4 w-[300px] h-[400px] rounded-2xl bg-white shadow-md hover:shadow-xl transition duration-300 ease-in-out overflow-hidden border border-gray-100 hover:-translate-y-1">
+            <div className="relative">
+                <img
+                    className="w-full h-[220px] object-cover transition duration-300 group-hover:scale-[1.02]"
+                    alt="res-logo"
+                    src={imageUrl}
+                    onError={(e) => {
+                      e.currentTarget.src = PLACEHOLDER_IMAGE;
+                    }}
+                />
+                <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/35 to-transparent" />
+                <button
+                    className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold shadow-sm ${
+                      isFavorite ? "bg-red-500 text-white" : "bg-white text-gray-800"
+                    }`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onToggleFavorite?.();
+                    }}
+                >
+                    {isFavorite ? "Saved" : "Save"}
+                </button>
+            </div>
             <div className="p-4">
-                <h3 className="font-gilroy font-bold text-lg text-gray-800 mb-2">{name}</h3>
-                <div className="flex items-center space-x-3 mb-2">
-                    <h4 className="text-gray-600 flex items-center space-x-1">
+                <h3 className="font-bold text-lg text-gray-900 mb-1 truncate">{name}</h3>
+                <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center space-x-1 text-sm text-gray-600">
                         <StarIcon className="h-5 w-5 text-green-500" />
                         <span>{avgRating}</span>
-                    </h4>
-                    <h4 className="text-gray-600 font-bold text-sm">{resData.sla.deliveryTime} minutes</h4>
+                    </div>
+                    <span className="text-sm font-semibold text-gray-700">
+                        {resData.sla.deliveryTime} mins
+                    </span>
                 </div>
-                <h4 className=" font-gilory font-semibold text-gray-600 mb-1 text-xs">{cuisines.slice(0, 3).join(", ")}</h4>
-                 {/*<h4 className="text-gray-600 mb-1">Cost for two: {costForTwo}</h4> */}
+                <h4 className="text-xs font-semibold text-gray-600 mb-1">
+                    {cuisines.slice(0, 3).join(", ")}
+                </h4>
+                <p className="text-xs text-gray-500">{costForTwo}</p>
+                <div className="mt-3 inline-flex items-center gap-2 text-xs font-semibold text-orange-600">
+                    View menu
+                    <span className="inline-block h-[1px] w-6 bg-orange-400" />
+                </div>
             </div>
         </div>
     </>
@@ -59,6 +86,3 @@ const {
 
 
 export default Rescard;
-
-
-

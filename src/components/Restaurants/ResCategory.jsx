@@ -1,4 +1,5 @@
 import ItemList from "./ItemList";
+import { Card } from "../../ui";
 
 const ResCategory = ({ data, showItems, setShowIndex }) => {
    
@@ -12,13 +13,13 @@ const ResCategory = ({ data, showItems, setShowIndex }) => {
     return (
         <div>
            {/* Header */}
-           <div className="w-6/12 bg-gray-50 shadow-lg p-2 mx-auto my-4">
-            <div className="flex justify-between">
-                <span className="font-bold text-lg">{data.title} ({data.itemCards.length})</span>
+           <Card className="mx-auto my-4 w-full max-w-3xl" variant="solid" size="md">
+            <div className="flex justify-between items-center">
+                <span className="font-bold text-lg text-gray-900">{data.title} ({data.itemCards.length})</span>
                 <svg xmlns="http://www.w3.org/2000/svg" 
                     fill="none" viewBox="0 0 24 24" 
                     strokeWidth={1.5} stroke="currentColor" 
-                    className="w-5 h-5 cursor-pointer"
+                    className="w-5 h-5 cursor-pointer text-gray-600"
                     onClick={() => handleClick() }>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                 </svg>
@@ -26,7 +27,7 @@ const ResCategory = ({ data, showItems, setShowIndex }) => {
                 {/* Accordian Body */}
                 {showItems && <ItemList items={data.itemCards}/> }
 
-           </div>
+           </Card>
         </div>
     )
 }

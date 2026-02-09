@@ -63,7 +63,7 @@ const Drawer = ({ isDrawerOpen, toggleDrawer }) => {
                         //here we are getting these uid, email, displayname and photoURL from the updated value of user not the old value
                         dispatch(addUser({ 
                                         uid: uid, 
-                                        emai: email,
+                                        email: email,
                                         displayName: displayName,  
                             }));
                             setUserLoggedIn(auth.currentUser);  // Trigger the pop-up
@@ -94,6 +94,12 @@ const Drawer = ({ isDrawerOpen, toggleDrawer }) => {
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
+                const {uid, email, displayName} = user;
+                dispatch(addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                }));
                 setUserLoggedIn(user);  // Trigger the pop-up
                 //console.log(user);
             

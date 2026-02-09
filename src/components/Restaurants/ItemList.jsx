@@ -1,7 +1,8 @@
 import { useDispatch } from "react-redux";
 //import { addItem }  from "../../utils/cartSlice";
-import { CDN_URL } from "../../utils/constants";
+import { CDN_URL, PLACEHOLDER_IMAGE } from "../../utils/constants";
 import { addItem } from "../../utils/cartSlice";
+import { Button } from "../../ui";
 
 const ItemList = ({ items, dummy }) => {
 
@@ -18,31 +19,32 @@ const ItemList = ({ items, dummy }) => {
         <div
           data-testid="foodItems"
           key={item.card.info.id}
-          className="p-2 m-2 border-gray-200 border-b-2 text-left flex justify-between"
+          className="m-2 border-b border-gray-200 pb-4 text-left flex justify-between gap-4"
         >
           <div className="w-9/12">
-            <div className="py-2">
-              <span>{item.card.info.name}</span>
-              <span>
-                - ₹
+            <div className="py-2 flex items-center justify-between">
+              <span className="font-semibold text-gray-900">{item.card.info.name}</span>
+              <span className="text-sm font-semibold text-gray-700">
+                ₹
                 {item.card.info.price
                   ? item.card.info.price / 100
                   : item.card.info.defaultPrice / 100}
               </span>
             </div>
-            <p className="text-xs">{item.card.info.description}</p>
+            <p className="text-xs text-gray-500">{item.card.info.description}</p>
           </div>
-          <div className="w-3/12 p-4">
-            <div className="absolute">
-              <button
-                className="p-2 mx-16 rounded-lg bg-black text-white shadow-lg"
-                onClick={() => handleAddItem(item)}
-              >
-                Add +
-              </button>
-            </div>
-                <img src={CDN_URL + item.card.info.imageId} alt="something"
-                    className="w-full" />
+          <div className="w-3/12 p-2 flex flex-col items-end gap-2">
+            <img
+              src={item.card.info.imageId ? CDN_URL + item.card.info.imageId : PLACEHOLDER_IMAGE}
+              alt="menu item"
+              className="w-full rounded-xl object-cover"
+              onError={(e) => {
+                e.currentTarget.src = PLACEHOLDER_IMAGE;
+              }}
+            />
+            <Button size="sm" onClick={() => handleAddItem(item)}>
+              Add to cart
+            </Button>
           </div>
         </div>
       ))}
